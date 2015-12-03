@@ -1,22 +1,20 @@
 angular.module('app',
-	['ngRoute', 'ngResource', 'search.controller', 'search.service', 'tvshow.controller', 'tvshow.service'])
-.filter('trustHTML', function($sce) {return function(text){ return $sce.trustAsHtml(text);}})
+	['ngRoute', 'ngResource'])
 .config(['$routeProvider', '$locationProvider',
 	function ($routeProvider, $locationProvider) {
 
 		$routeProvider
 		.when('/', {
-			templateUrl: 'views/search.html',
-			controller: 'SearchController'
+			templateUrl: 'views/userinfo.html'
 		})
-		.when('/show/:id', {
-			templateUrl: 'views/show.html',
-			controller: 'TvshowController',
-			resolve: {
-				tvshow: function($route, TvshowService){
-					return TvshowService.get({id: $route.current.params.id});
-				}
-			}
+		.when('/register', {
+			templateUrl: 'views/register.html'
+		})
+		.when('/contact', {
+			templateUrl: 'views/contact.html'
+		})
+		.when('/payment', {
+			templateUrl: 'views/payment.html'
 		})
 		.otherwise({
 			redirectTo: '/'
