@@ -1,0 +1,11 @@
+<h3>Cast</h3>
+<div ng-if="cast.length">
+	<div class="row" ng-repeat="actor in cast">
+		<div class="col-md-2">
+        	<img ng-src={{actor.character.image.medium||actor.person.image.medium||"/images/persondefault.jpg"}} alt="image" class="img-thumbnail">
+        </div>
+        <div class="col-md-6">
+        	<p>{{actor.person.name}} ... {{actor.character.name}}</p>
+        </div>
+	</div>
+</div>
