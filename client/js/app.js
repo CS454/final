@@ -21,6 +21,9 @@ function ($routeProvider, $locationProvider) {
 	.when('/payment', {
 		templateUrl: 'views/payment.html'
 	})
+	.when('/last', {
+		templateUrl: 'views/last.html'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});
