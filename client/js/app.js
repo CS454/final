@@ -6,6 +6,11 @@ angular.module('app',
 		$routeProvider
 		.when('/', {
 			templateUrl: 'views/userinfo.html'
+			
+		})
+		.when('/userinfo', {
+			templateUrl: 'views/userinfo.html'
+
 		})
 		.when('/register', {
 			templateUrl: 'views/register.html'
