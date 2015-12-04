@@ -9,18 +9,23 @@ module.exports = function(app) {
 
 		if(!validate.isAlpha(req.body.fname)) {
 			res.send('Not correct first name');
+			return;
 		}
 		if(!validate.isAlpha(req.body.lname)) {
 			res.send('Not correct last name');
+			return;
 		}
 		if(!validate.isURL(req.body.url)) {
 			res.send("not correct url");
+			return;
 		}
 		if(validate.isAfter(req.body.bday, refDate)) {
 			res.send("you should be above 18 to proceed");
+			return;
 		}
 		if(!validate.contains(req.body.fb,'facebook')) {
 			res.send("please enter your facebook url");
+			return;
 		}
 		else {
 			res.redirect('/register');
@@ -61,18 +66,23 @@ module.exports = function(app) {
 		console.log("Sanitized Email: "+sanitizeEmail);
 		if(!validate.isEmail(sanitizeEmail)){
 			res.send("Invalid email");
+			return;
 		}
 		if(!validate.isMobilePhone(req.body.mobile,'en-US')){
 			res.send("Invalid mobile");
+			return;
 		}
 		if(!validate.isAlpha(req.body.state)){
 			res.send("Invalid state");
+			return;
 		}
 		if(!validate.isNumeric(req.body.zipcode)){
 			res.send("Invalid zipcode");
+			return;
 		}
 		if(!validate.isLength(req.body.zipcode,5,5)){
 			res.send("Invalid zipcode length");
+			return;
 		}
 
 		res.redirect('/payment');
@@ -94,25 +104,31 @@ module.exports = function(app) {
 
 		if(!validate.isAlpha(chn)){
 			res.send("Invalid Credit card name");
+			return;
 		}
 
 		if(!validate.isCreditCard(cno)){
 			res.send("Invalid Credit No.");
+			return;
 		}
 
 		if(!validate.isInt(cvv, {min: 0, max: 9999})){
 			res.send("Invalid CVV");
+			return;
 		}
 
 		if(!validate.isInt(exm,{min: 1, max: 12})){
 			res.send("Invalid Month");
+			return;
 		}
 
 		if(!validate.isInt(exy)){
 			res.send("Invalid Year");
+			return;
 		}
 		if(validate.isBefore(new Date(exy, exm), date)){
 			res.send("Card is expired");
+			return;
 		}
 
 		res.redirect('/last');
