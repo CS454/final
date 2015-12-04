@@ -1,18 +1,26 @@
 var validate = require('validator');
+
 module.exports = function(app) {
 
 	app.post('/userinfoPost', function(req, res){
+		var date = new Date();
+		var year = date.getFullYear();
+		var refDate = new Date((date.getFullYear()-18), date.getMonth(), date.getDate());
+
 			if(!validate.isAlpha(req.body.fname)) {
-				res.send('Not correct');
+				res.send('Not correct first name');
+			}
+			if(!validate.isAlpha(req.body.lname)) {
+				res.send('Not correct last name');
 			}
 			if(!validate.isURL(req.body.url)) {
 				res.send("not correct url");
 			}
-			if(validate.isBefore('01/01/1997',req.body.bday)) {
+			if(validate.isAfter(req.body.bday, refDate)) {
 				res.send("you should be above 18 to proceed");
 			}
-			if(!validate.contains('facebook',req.body.facebook)) {
-				res.send("do you think we're stupid?");
+			if(!validate.contains(req.body.fb,'facebook')) {
+				res.send("please enter your facebook url");
 			}
 			else {
 				res.redirect('/register');
