@@ -7,24 +7,24 @@ module.exports = function(app) {
 		var year = date.getFullYear();
 		var refDate = new Date((date.getFullYear()-18), date.getMonth(), date.getDate());
 
-			if(!validate.isAlpha(req.body.fname)) {
-				res.send('Not correct first name');
-			}
-			if(!validate.isAlpha(req.body.lname)) {
-				res.send('Not correct last name');
-			}
-			if(!validate.isURL(req.body.url)) {
-				res.send("not correct url");
-			}
-			if(validate.isAfter(req.body.bday, refDate)) {
-				res.send("you should be above 18 to proceed");
-			}
-			if(!validate.contains(req.body.fb,'facebook')) {
-				res.send("please enter your facebook url");
-			}
-			else {
-				res.redirect('/register');
-			}
+		if(!validate.isAlpha(req.body.fname)) {
+			res.send('Not correct first name');
+		}
+		if(!validate.isAlpha(req.body.lname)) {
+			res.send('Not correct last name');
+		}
+		if(!validate.isURL(req.body.url)) {
+			res.send("not correct url");
+		}
+		if(validate.isAfter(req.body.bday, refDate)) {
+			res.send("you should be above 18 to proceed");
+		}
+		if(!validate.contains(req.body.fb,'facebook')) {
+			res.send("please enter your facebook url");
+		}
+		else {
+			res.redirect('/register');
+		}
 		//res.redirect('/register');
 	});
 
@@ -32,15 +32,15 @@ module.exports = function(app) {
 		var errs = {};
 		var pass = true;
 		if(!validate.isAlphanumeric(req.body.username)||
-			!validate.isLength(req.body.username, 5, 12)){
+		!validate.isLength(req.body.username, 5, 12)){
 			errs['username'] = false;
 			pass = false;
 		}
 		if(!validate.isLength(req.body.password, 8)||
-			!(validate.matches(req.body.password, /[a-z]/)
-				&&(validate.matches(req.body.password, /[A-Z]/))
-				&&(validate.matches(req.body.password, /\d/))
-				&&(validate.matches(req.body.password, /[!@#$%^&*-?]/)))){
+		!(validate.matches(req.body.password, /[a-z]/)
+		&&(validate.matches(req.body.password, /[A-Z]/))
+		&&(validate.matches(req.body.password, /\d/))
+		&&(validate.matches(req.body.password, /[!@#$%^&*-?]/)))){
 			errs['password'] = false;
 			pass = false;
 		}
@@ -85,37 +85,37 @@ module.exports = function(app) {
 	app.post('/paymentPost', function(req,res){
 
 		var chn = req.body.cardHolderName;
-	var cno = req.body.cardNumber;
-	var cvv = req.body.cvv;
-	var exm = req.body.expiryMonth;
-	var exy = req.body.expiryYear;
+		var cno = req.body.cardNumber;
+		var cvv = req.body.cvv;
+		var exm = req.body.expiryMonth;
+		var exy = req.body.expiryYear;
 
-	var date = new Date();
+		var date = new Date();
 
-if(!validator.isAlpha(chn)){
-res.send("Invalid Credit card name");
-}
+		if(!validator.isAlpha(chn)){
+			res.send("Invalid Credit card name");
+		}
 
-if(!validator.isCreditCard(cno)){
-res.send("Invalid Credit No.");
-}
+		if(!validator.isCreditCard(cno)){
+			res.send("Invalid Credit No.");
+		}
 
-if(!validator.isInt(cvv, {min: 0, max: 9999})){
-res.send("Invalid CVV");
-}
+		if(!validator.isInt(cvv, {min: 0, max: 9999})){
+			res.send("Invalid CVV");
+		}
 
-if(!validator.isInt(exm,{min: 1, max: 12})){
-res.send("Invalid Month");
-}
+		if(!validator.isInt(exm,{min: 1, max: 12})){
+			res.send("Invalid Month");
+		}
 
-if(!validator.isInt(exy)){
-res.send("Invalid Year");
-}
-if(validator.isBefore(new Date(exy, exm), date)){
-res.send("Card is expired");
-}
+		if(!validator.isInt(exy)){
+			res.send("Invalid Year");
+		}
+		if(validator.isBefore(new Date(exy, exm), date)){
+			res.send("Card is expired");
+		}
 
-res.redirect('/userinfo');
+		res.redirect('/userinfo');
 
 	});
 }
