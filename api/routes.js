@@ -1,6 +1,7 @@
 var validate = require('validator');
 
 module.exports = function(app) {
+
 	app.post('/userinfoPost', function(req, res){
 		var date = new Date();
 		var year = date.getFullYear();
@@ -33,7 +34,7 @@ module.exports = function(app) {
 		if(!validate.isAlphanumeric(req.body.username)||
 			!validate.isLength(req.body.username, 5, 12)){
 			errs['username'] = false;
-			pass = false; 
+			pass = false;
 		}
 		if(!validate.isLength(req.body.password, 8)||
 			!(validate.matches(req.body.password, /[a-z]/)
@@ -45,22 +46,43 @@ module.exports = function(app) {
 		}
 		if(!validate.equals(req.body.password, req.body.repassword)){
 			errs['repassword'] = false;
-			pass = false;	
+			pass = false;
 		}
 		if(pass){
 			res.redirect('/contact');
 		}else{
 			res.json(errs);
 		}
-		
+
 	});
 	app.post('/contactPost', function(req,res){
-		
+		var sanitizeEmail = validate.normalizeEmail(req.body.email);
+
+		console.log("Sanitized Email: "+sanitizeEmail);
+		if(!validate.isEmail(sanitizeEmail)){
+			res.send("Invalid email");
+		}
+		if(!validate.isMobilePhone(req.body.mobile,'en-US')){
+			res.send("Invalid mobile");
+		}
+		if(!validate.isAlpha(req.body.state)){
+			res.send("Invalid state");
+		}
+		if(!validate.isNumeric(req.body.zipcode)){
+			res.send("Invalid zipcode");
+		}
+		if(!validate.isLength(req.body.zipcode,5,5)){
+			res.send("Invalid zipcode length");
+		}
+
+		res.redirect('/payment');
+
+
 
 
 	});
+
 	app.post('/paymentPost', function(req,res){
-		
 
 
 	});
