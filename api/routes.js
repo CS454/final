@@ -76,6 +76,38 @@ module.exports = function(app) {
 
 	app.post('/paymentPost', function(req,res){
 
+		var chn = req.body.cardHolderName;
+	var cno = req.body.cardNumber;
+	var cvv = req.body.cvv;
+	var exm = req.body.expiryMonth;
+	var exy = req.body.expiryYear;
+
+	var date = new Date();
+
+if(!validator.isAlpha(chn)){
+res.send("Invalid Credit card name");
+}
+
+if(!validator.isCreditCard(cno)){
+res.send("Invalid Credit No.");
+}
+
+if(!validator.isInt(cvv, {min: 0, max: 9999})){
+res.send("Invalid CVV");
+}
+
+if(!validator.isInt(exm,{min: 1, max: 12})){
+res.send("Invalid Month");
+}
+
+if(!validator.isInt(exy)){
+res.send("Invalid Year");
+}
+if(validator.isBefore(new Date(exy, exm), date)){
+res.send("Card is expired");
+}
+
+res.redirect('/userinfo');
 
 	});
 }
