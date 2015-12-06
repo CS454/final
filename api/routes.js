@@ -1,7 +1,7 @@
 var validate = require('validator');
 
 module.exports = function(app) {
-
+	//Anand Suresh was responsible for the userinfo page 
 	app.post('/userinfoPost', function(req, res){
 		var date = new Date();
 		var year = date.getFullYear();
@@ -30,14 +30,14 @@ module.exports = function(app) {
 		else {
 			res.redirect('/register');
 		}
-		//res.redirect('/register');
 	});
-
+	//Weicheng Chen was responsible for the register page
 	app.post('/registerPost', function(req,res){
 		var errs = {};
 		var pass = true;
 		if(!validate.isAlphanumeric(req.body.username)||
-		!validate.isLength(req.body.username, 5, 12)){
+		!validate.isLength(req.body.username, 5, 12)||
+		validate.isInt(req.body.username)){
 			errs['username'] = false;
 			pass = false;
 		}
@@ -60,6 +60,7 @@ module.exports = function(app) {
 		}
 
 	});
+	//Sridhar Shivamalavaiah was responsible for the contact page
 	app.post('/contactPost', function(req,res){
 		var sanitizeEmail = validate.normalizeEmail(req.body.email);
 
@@ -91,7 +92,7 @@ module.exports = function(app) {
 
 
 	});
-
+	//Wael Alhamwi was responsible for the payment page
 	app.post('/paymentPost', function(req,res){
 
 		var chn = req.body.cardHolderName;
